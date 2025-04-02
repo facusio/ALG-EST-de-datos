@@ -1,11 +1,16 @@
 package TP3;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class ContadorPalabras {
 
 	/**
 	 * Metodo para contar palabras en una frase.
 	 * Caracteristicas: No usar split(), Una palabra debe contener al menos un caracter alfabetico.
-	 * @param frase Texto a analizar
+	 * @param frase texto a analizar
 	 * @return Numero de palabras
 	 */
 
@@ -42,6 +47,12 @@ public class ContadorPalabras {
 		return contadorPalabras;
 	}
 	
+	/**
+	 * Metodo para contar la cantidad de vocales en una frase.
+	 * @param frase texto a analizar
+	 * @return Numero de vocales encontradas
+	 */
+	
 	public int contarVocales(String frase) {
 		if (frase == null || frase.isEmpty()) {
 			return 0;
@@ -64,6 +75,12 @@ public class ContadorPalabras {
 		
 		return contadorVocales;
 	}
+	
+	/**
+	 * Metodo que cuenta la cantidad de consonantes en una frase.
+	 * @param frase texto a analizar
+	 * @return Numero de consonantes encontradas
+	 */
 	
 	public int contarConsonantes(String frase) {
 		if(frase == null || frase.isEmpty()) {
@@ -90,6 +107,13 @@ public class ContadorPalabras {
 		
 		return contadorConsonantes;
 	}
+	
+	/**
+	 * Metodo que cuenta palabras que superan un largo minimo especificado
+	 * @param frase texto a analizar
+	 * @param largoMinimo Longitud minima que deben superar las palabras
+	 * @return Numero de palabras que superan el largo minimo
+	 */
 	
 	public int contarPalabrasMayoresA(String frase, int largoMinimo) {
 		if (frase == null || frase.trim().isEmpty()) {
@@ -133,4 +157,57 @@ public class ContadorPalabras {
 		
 		return contadorPalabrasLargas;
 	}
+	
+	/**
+	 * Retorna un array de strings con las lineas de texto contenidas en un archivo dado e indica la cantidad de lineas leidas.
+	 * @param archivo Ruta del archivo a leer
+	 * @return Un arreglo de strings donde cada elemento es una linea del archivo
+	 */
+	
+	public String[] obtenerLineas(String archivo) {
+		
+		// Lista para almacenar las lineas
+		ArrayList<String> frases = new ArrayList<>();
+		
+		// FileReader(archivo) abre el archivo como texto
+		// BufferedReader para leer el archivo linea por linea
+		try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+			String frase;
+			
+			// Leer el archivo linea por linea
+			while ((frase = br.readLine()) != null) {
+				frases.add(frase);
+			}
+			
+			System.out.println("Cantidad de lineas leidas: " + frases.size());
+			br.close(); // cierra el archivo
+		
+		} catch (IOException e) {
+			System.out.println("Error al leer el archivo: " + e.getMessage());
+		}
+		
+		// Convertir el ArrayList a un array de string y retornarlo
+		return frases.toArray(new String [0]);
+	}
+	
+	/**
+	 * Dado un array de strings que contiene las lineas de texto, retorna la cantidad de palabras contenidas.
+	 * @param lineasArchivo array de lineas de texto
+	 * @return Cantidad total de palabras
+	 */
+	
+	public int cantPalabras(String[] lineasArchivo) {
+		// Variable para contar el total de palabras
+		int totalPalabras = 0;
+		
+		// Recorre cada linea del archivo
+		for (String frase : lineasArchivo) {
+			
+			// Contar las palabras en la linea actual y sumar al total
+			totalPalabras = totalPalabras + contarPalabras(frase);
+		}
+		
+		return totalPalabras;
+	}
+	
 }
