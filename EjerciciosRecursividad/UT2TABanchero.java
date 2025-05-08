@@ -1,4 +1,4 @@
-public class EjemplosRecursividad {
+public class UT2TABanchero {
     // 1. Determine recursivamente si un numero dado es paro o impar, usando solo la operacion resta.
 
     public static boolean esPar(int n) {
@@ -19,7 +19,7 @@ public class EjemplosRecursividad {
         }
         int digit = n % 10;
         if (digit % 2 != 0) {
-            return true;
+            return false;
         }
         return todosPares(n / 10);
     }
@@ -39,7 +39,7 @@ public class EjemplosRecursividad {
     // Por ejemplo, si la cadena es "Hola" la salida deberia salir "aloH".
 
     public static String imprimirInverso(String cadena) {
-        if(cadena.isEmpty || cadena == null) {
+        if(cadena.isEmpty() || cadena == null) {
             return "";
         }
         return cadena.substring(cadena.length() - 1) + imprimirInverso(cadena.substring(0, cadena.length() - 1));
